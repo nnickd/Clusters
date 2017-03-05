@@ -16,14 +16,9 @@ for i in range(6):
     ent = entity(p, c)
     e.append(ent)
 
-e[0].cluster.add(e[1])
-e[1].cluster.add(e[2], e[3])
-e[2].cluster.add(e[3], e[4], e[5])
-e[3].cluster.add(e[4], e[5], e[0], e[1])
-e[4].cluster.add(e[5])
-e[5].cluster.add(e[0])
+ent = entity(point(np.array([960., 540.]), np.array([0., 0.]), np.array([0., 0.])), np.array([0, 0, 0]))
 
-cluster = cluster()
+cluster = cluster(ent)
 cluster.add(*e)
 
 world = world(cluster)

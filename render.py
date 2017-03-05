@@ -1,5 +1,8 @@
 import pyglet
 from pyglet.window import mouse, key
+from point import point
+from entity import entity
+import numpy as np
 
 
 class render(object):
@@ -32,6 +35,7 @@ class render(object):
     @window.event
     def on_mouse_drag(x, y, dx, dy, buttons, modifiers):
         if buttons & mouse.LEFT:
+            # render.world.add_to_coord(x, y)
             pass
         if buttons & mouse.RIGHT:
             pass
@@ -39,6 +43,6 @@ class render(object):
     @window.event
     def on_mouse_press(x, y, button, modifiers):
         if button == mouse.LEFT:
-            pass
+            render.world.add_to_coord(x, y)
         if button == mouse.RIGHT:
             pass
