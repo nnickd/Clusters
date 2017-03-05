@@ -31,5 +31,6 @@ class cluster:
     def bond(self, distance):
         for entx in self.ents:
             for enty in self.ents:
-                if vector.distance(entx.point.pos, enty.point.pos) < distance and vector.distance(entx.point.pos, enty.point.pos) > 0 and enty not in entx.cluster.ents:
+                dist = vector.distance(entx.point.pos, enty.point.pos)
+                if dist < distance and dist > 0 and enty not in entx.cluster.ents:
                     entx.cluster.add(enty)

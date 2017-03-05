@@ -1,6 +1,5 @@
 import numpy as np
 from point import point
-from vector import vector
 from entity import entity
 
 
@@ -8,7 +7,6 @@ class world:
 
     def __init__(self, cluster):
         self.cluster = cluster
-        self.verts = point()
 
     def tick(self):
         self.cluster.bond(100)
@@ -16,7 +14,7 @@ class world:
             ent.tick()
         for ent in self.cluster.ents:
             ent.point.lerp()
-            ent.point.bound(np.array([960., 540.]), 400)
+            ent.point.bound(np.array([960., 540.]), 540)
 
     @property
     def amount(self):
@@ -31,7 +29,6 @@ class world:
         return np.array([ent.color for ent in self.cluster.ents]).ravel()
 
     def add_to_coord(self, x, y):
-        pos = np.array([x, y], dtype='f')
-        pt = point(pos, np.array([0., 0.]), np.array([0., 0.]))
-        ent = entity(pt, np.array([0, 0, 255]))
+        pt = point(np.array([x, y], dtype='f'), np.array([0., 0.]), np.array([0., 0.]))
+        ent = entity(pt, np.array([0., 255., 0.]))
         self.cluster.add(ent)
