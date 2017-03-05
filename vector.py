@@ -24,7 +24,7 @@ class vector:
         return np.arccos(np.clip(np.dot(vector.normalize(vec1), vector.normalize(vec2)), -1.0, 1.0))
 
     def make(x, y):
-        return np.array([x, y])
+        return np.array([x, y], dtype='f')
 
     def random(origin, radius):
         theta = np.random.rand() * 360
