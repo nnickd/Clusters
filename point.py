@@ -13,12 +13,10 @@ class point:
         self.pos += self.vel
         self.acc *= 0
 
-    def force(self, force):
-        self.acc += force
-
     def bound(self, pos, dist):
         if vector.magnitude(self.pos - pos) > dist:
-            self.vel *= -1
+            # self.vel *= -1
+            self.pos = vector.make(960, 540)
 
     @property
     def speed(self):

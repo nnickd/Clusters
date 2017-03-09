@@ -1,4 +1,5 @@
 from vector import vector
+import numpy as np
 
 
 class cluster:
@@ -7,30 +8,41 @@ class cluster:
         self.ent = entity
         self.ents = []
 
+    @property
+    def pos(self):
+        return np.array([ent.point.pos for ent in self.ents])
+
     def add(self, *ents):
         for ent in ents:
             self.ents.append(ent)
 
     def remove(self, *ents):
-        for ent in ents:
-            self.ents.remove(ent)
+        if len(self.pos) > 0:
+            self.ent.avoid(self.pos)
 
     def seek(self):
-        for ent in self.ents:
-            self.ent.seek(ent.point.pos)
+        if len(self.pos) > 0:
+            self.ent.seek(self.pos)
 
     def avoid(self):
         for ent in self.ents:
             self.ent.avoid(ent.point.pos)
 
-    def break_bond(self, distance):
-        for ent in self.ents:
-            if vector.distance(self.ent.point.pos, ent.point.pos) >= distance:
-                self.remove(ent)
-
     def bond(self, distance):
-        for entx in self.ents:
-            for enty in self.ents:
-                dist = vector.distance(entx.point.pos, enty.point.pos)
-                if dist < distance and dist > 0 and enty not in entx.cluster.ents:
-                    entx.cluster.add(enty)
+        for i in range(len(self.ents)):
+            for j in range(len(self.ents) - i):
+                x, y = self.ents[i], self.ents[j + i]
+                dist = vector.distance(x.point.pos, y.point.pos)
+                if dist < distance and dist > 0 and y not in x.cluster.ents:
+                    x.cluster.add(y)
+                    y.cluster.add(x)
+                    if dist >= distance and y in x.cluster.ents:
+                        x.cluster.remove(y)
+                        y.cluster.remove(x)
+        # for entx in self.ents:
+        #     for enty in self.ents:
+        #         dist = vector.distance(entx.point.pos, enty.point.pos)
+        #         if dist < distance and dist > 0 and enty not in entx.cluster.ents:
+        #             entx.cluster.add(enty)
+        #         if dist >= distance and enty in entx.cluster.ents:
+        #             entx.cluster.remove(enty)

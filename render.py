@@ -43,8 +43,8 @@ class render(object):
     @window.event
     def on_mouse_drag(x, y, dx, dy, buttons, modifiers):
         if buttons & mouse.LEFT:
-            if render.world.amount > 60:
-                del render.world.cluster.ents[0]
+            # if render.world.amount > 60:
+            #     del render.world.cluster.ents[0]
             render.world.add_to_coord(x, y)
         if buttons & mouse.RIGHT:
             if render.world.amount > 1:
